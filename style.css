@@ -1,0 +1,99 @@
+#content {
+    display: flex;
+}
+
+#input {
+    flex-grow: 0;
+    width: 350px;
+    border-right: 4px double gray;
+}
+
+#output {
+    flex-grow: 3;
+    padding-left: 1em;
+    font-family: monospace;
+}
+
+#output > .node {
+    border-bottom: 1px solid lightgray;
+}
+
+.node {
+    padding-top: 2px;
+    margin-top: 2px;
+    border-top: 1px solid lightgray;
+}
+
+.node.hide .node-start,
+.node.hide .node-end,
+.node.hide .node-detail,
+.node.hide .node-content,
+.node.hide .children-container {
+    display: none;
+}
+
+.node .details {
+    visibility: hidden;
+    background-color: lightblue;
+    margin-left: 1ex;
+}
+
+.node.hide .details {
+    visibility: visible;
+}
+
+.children-container {
+    padding-left: 1ex;
+    margin-left: 4ex;
+    border-left: 1px solid lightgray;
+}
+
+.node-type .name {
+    font-size: large;
+}
+
+.name {
+    padding-right: 1ex;
+    white-space: pre;
+}
+
+.value {
+    font-weight: bold;
+    white-space: pre;
+}
+
+.info {
+    display: flex;
+}
+
+.left-side {
+    flex-grow: 0;
+}
+
+.right-side {
+    flex: 6;
+    -webkit-transition: background 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.right-side:hover {
+    background: linear-gradient(135deg, rgba(0,0,0,0), #DDD);
+}
+
+.very-right-side {
+    flex: 1;
+}
+
+.very-right-side:hover {
+    flex: 1;
+    background-color: #DDD;
+}
+
+h1 {
+    text-align: center;
+}
