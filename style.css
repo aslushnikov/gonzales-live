@@ -76,13 +76,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: transparent;
     -webkit-user-select: none;
     cursor: pointer;
 }
 
-.right-side:hover {
+.node.mouseover {
     background: linear-gradient(135deg, rgba(0,0,0,0), #DDD);
+}
+
+.right-side:hover {
+    color: #333;
 }
 
 .very-right-side {

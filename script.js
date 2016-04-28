@@ -36,6 +36,20 @@ function toggleContainer(element, event)
     event.stopPropagation();
 }
 
+function onMouseOver(element, event)
+{
+    element.classList.toggle("mouseover", true);
+    event.preventDefault();
+    event.stopPropagation();
+}
+
+function onMouseOut(element, event)
+{
+    element.classList.toggle("mouseover", false);
+    event.preventDefault();
+    event.stopPropagation();
+}
+
 function dumpNode(node)
 {
     var element = div("node");
@@ -44,6 +58,8 @@ function dumpNode(node)
     var leftSide = div("left-side", infoNode);
     var rightSide = div("right-side", infoNode);
     rightSide.addEventListener("click", toggleContainer.bind(null, element), false);
+    rightSide.addEventListener("mouseover", onMouseOver.bind(null, element), false);
+    rightSide.addEventListener("mouseout", onMouseOut.bind(null, element), false);
     span("", rightSide).textContent = "toggle";
 
     var type = div("node-type", leftSide);
