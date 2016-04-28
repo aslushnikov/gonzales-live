@@ -12,11 +12,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     window.editor = cm;
 });
 
+var updateTimeout = null;
 function onTextChanged(codemirror)
 {
-    var text = codemirror.getValue();
-    localStorage.setItem("text", text);
+    if (updateTimeout)
+        clearTimeout(updateTimeout);
+    updateTimeout = setTimeout(throttledUpdate, 500);
+}
 
+function throttledUpdate()
+{
+    updateTimeout = null;
+    var text = editor.getValue();
+    localStorage.setItem("text", text);
     var output = document.querySelector("#output");
     output.innerHTML = "";
     try {
