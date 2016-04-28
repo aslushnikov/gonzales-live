@@ -1,3 +1,4 @@
+var editor = null;
 document.addEventListener("DOMContentLoaded", function(event) {
     var input = document.querySelector("#input");
     var cm = CodeMirror(input, {
@@ -8,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var defaultText = "div {\n    color: red;\n}";
     var text = localStorage.getItem("text") || defaultText;
     cm.setValue(text);
+    window.editor = cm;
 });
 
 function onTextChanged(codemirror)
@@ -41,9 +43,19 @@ function toggleContainer(element, event)
     event.stopPropagation();
 }
 
-function onMouseOver(element, event)
+var textMark = null;
+function onMouseOver(element, node, event)
 {
     element.classList.toggle("mouseover", true);
+    if (textMark) {
+        textMark.clear();
+        textMark = null;
+    }
+    if (window.editor) {
+        var from = {line: node.start.line - 1, ch: node.start.column - 1};
+        var to = {line: node.end.line - 1, ch: node.end.column};
+        textMark = window.editor.markText(from, to, {className: "highlight-text"});
+    }
     event.preventDefault();
     event.stopPropagation();
 }
@@ -51,6 +63,10 @@ function onMouseOver(element, event)
 function onMouseOut(element, event)
 {
     element.classList.toggle("mouseover", false);
+    if (textMark) {
+        textMark.clear();
+        textMark = null;
+    }
     event.preventDefault();
     event.stopPropagation();
 }
@@ -63,7 +79,7 @@ function dumpNode(node)
     var leftSide = div("left-side", infoNode);
     var rightSide = div("right-side", infoNode);
     rightSide.addEventListener("click", toggleContainer.bind(null, element), false);
-    rightSide.addEventListener("mouseover", onMouseOver.bind(null, element), false);
+    rightSide.addEventListener("mouseover", onMouseOver.bind(null, element, node), false);
     rightSide.addEventListener("mouseout", onMouseOut.bind(null, element), false);
     span("", rightSide).textContent = "toggle";
 
