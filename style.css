@@ -1,5 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
 #content {
     display: flex;
+    flex-grow: 1;
 }
 
 #input {
@@ -12,6 +22,7 @@
     flex-grow: 3;
     padding-left: 1em;
     font-family: monospace;
+    overflow: auto;
 }
 
 #output > .node {

@@ -5,15 +5,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
         indentUnit: 4
     });
     cm.on("change", onTextChanged);
-    cm.setValue("div {\n    color: red;\n}");
+    var defaultText = "div {\n    color: red;\n}";
+    var text = localStorage.getItem("text") || defaultText;
+    cm.setValue(text);
 });
 
 function onTextChanged(codemirror)
 {
+    var text = codemirror.getValue();
+    localStorage.setItem("text", text);
+
     var output = document.querySelector("#output");
     output.innerHTML = "";
     try {
-        var tree = gonzales.parse(codemirror.getValue(), {syntax: "scss", needInfo: true});
+        var tree = gonzales.parse(text, {syntax: "scss", needInfo: true});
         output.appendChild(dumpNode(tree));
     } catch (e) {
         console.error(e);
